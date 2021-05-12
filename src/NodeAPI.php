@@ -7,6 +7,7 @@ use Muvon\KISS\Base58Codec;
 
 class NodeAPI {
   const NETWORK_PREFIX = 'cd1400';
+  const HD_PATH = "m/44'/0'/0'/0/0";
 
   use RequestTrait;
 
@@ -30,6 +31,23 @@ class NodeAPI {
 
   public static function create(array $config): static {
     return new static($config);
+  }
+
+  public static function generateAddress(): array {
+    $entropy = BIP39::generateEntropy(128);
+    $mnemonic = BIP39::entropyToMnemonic($entropy);
+    $seed = BIP39::mnemonicToSeedHex($mnemonic, '');
+    $HDKey = BIP44::fromMasterSeed($seed)->derive(static::HD_PATH);
+    $address = Base58Codec::checkEncode(static::NETWORK_PREFIX . $HDKey->publicKey);
+    return [
+      'address' => $address,
+      'public' => $HDKey->publicKey,
+      'secret' => [
+        'private' => $HDKey->privateKey,
+        'seed' => $seed,
+        'mnemonic' => $mnemonic,
+      ]
+    ];
   }
 
   public function getLastBlock(): array {
