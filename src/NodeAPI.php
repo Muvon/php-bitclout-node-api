@@ -163,7 +163,7 @@ class NodeAPI {
   }
 
   public function buyCreatorCoin(string $creator_key, int $value, bool $preview = false): array{
-    $response = $this->run('buy-or-sell-creator-coin' . ($preview ? '-preview' : '') . '-WVAzTWpGOFFnMlBvWXZhTFA4NjNSZGNW', [
+    $response = $this->run('buy-or-sell-creator-coin', [
       'UpdaterPublicKeyBase58Check' => $this->public_key,
       'CreatorPublicKeyBase58Check' => $creator_key,
       'BitCloutToSellNanos' => $value,
