@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7503ee992af55360c9b51ad9e0b42076",
+    "content-hash": "9288810075dc80efe377b2cbfb325fc5",
     "packages": [
         {
             "name": "minter/minter-php-bip-44",
@@ -89,18 +89,72 @@
             "time": "2021-04-27T14:58:03+00:00"
         },
         {
-            "name": "muvon/kiss-request-trait",
-            "version": "0.4.0",
+            "name": "muvon/kiss-binary-codec",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Muvon/php-kiss-request-trait.git",
-                "reference": "b1de2c76072a37f2753c302ceb33792d37855286"
+                "url": "https://github.com/Muvon/php-kiss-binary-codec.git",
+                "reference": "6f7bef5ab40cf458fb6e8015412290805bf54831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Muvon/php-kiss-request-trait/zipball/b1de2c76072a37f2753c302ceb33792d37855286",
-                "reference": "b1de2c76072a37f2753c302ceb33792d37855286",
+                "url": "https://api.github.com/repos/Muvon/php-kiss-binary-codec/zipball/6f7bef5ab40cf458fb6e8015412290805bf54831",
+                "reference": "6f7bef5ab40cf458fb6e8015412290805bf54831",
                 "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Muvon\\KISS\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muvon Co. Ltd",
+                    "email": "contact@muvon.io"
+                }
+            ],
+            "description": "Binary codec for encoding multiple structures with predefined config",
+            "keywords": [
+                "binary",
+                "codec",
+                "decoder",
+                "encoder",
+                "kiss",
+                "lightweight"
+            ],
+            "support": {
+                "issues": "https://github.com/Muvon/php-kiss-binary-codec/issues",
+                "source": "https://github.com/Muvon/php-kiss-binary-codec/tree/0.3.1"
+            },
+            "time": "2021-04-06T13:33:00+00:00"
+        },
+        {
+            "name": "muvon/kiss-request-trait",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Muvon/php-kiss-request-trait.git",
+                "reference": "6e8733969ecb7c0f6caa7367f60bdc4ff5d59e9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Muvon/php-kiss-request-trait/zipball/6e8733969ecb7c0f6caa7367f60bdc4ff5d59e9b",
+                "reference": "6e8733969ecb7c0f6caa7367f60bdc4ff5d59e9b",
+                "shasum": ""
+            },
+            "require": {
+                "muvon/kiss-binary-codec": "^0.3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^10"
@@ -132,9 +186,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Muvon/php-kiss-request-trait/issues",
-                "source": "https://github.com/Muvon/php-kiss-request-trait/tree/0.4.0"
+                "source": "https://github.com/Muvon/php-kiss-request-trait/tree/0.6.0"
             },
-            "time": "2021-03-28T11:15:36+00:00"
+            "time": "2021-04-04T12:50:41+00:00"
         },
         {
             "name": "simplito/bigint-wrapper-php",
