@@ -28,6 +28,10 @@ class NodeAPI {
     }
   }
 
+  public static function create(array $config): static {
+    return new static($config);
+  }
+
   public function getLastBlock(): array {
     return $this->run('api/v1', [], 'GET');
   }
