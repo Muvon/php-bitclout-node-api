@@ -27,7 +27,8 @@
   "require": {
     "muvon/kiss-request-trait": "^0.4.0",
     "simplito/elliptic-php": "^1.0",
-    "minter/minter-php-bip-44": "^1.2"
+    "minter/minter-php-bip-44": "^1.2",
+    "muvon/base58-codec": "^0.1"
   },
   "autoload": {
     "psr-4": {

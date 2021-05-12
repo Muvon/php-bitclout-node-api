@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cffbf3b49740b7320931b9c8d68274b",
+    "content-hash": "7503ee992af55360c9b51ad9e0b42076",
     "packages": [
         {
             "name": "minter/minter-php-bip-44",
@@ -39,6 +39,54 @@
                 "source": "https://github.com/MinterTeam/minter-php-bip-44/tree/v1.2.0"
             },
             "time": "2021-03-25T10:10:28+00:00"
+        },
+        {
+            "name": "muvon/base58-codec",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Muvon/php-kiss-base58-codec.git",
+                "reference": "753aeb34bbcb5d2bf902b8644efbca6052932b00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Muvon/php-kiss-base58-codec/zipball/753aeb34bbcb5d2bf902b8644efbca6052932b00",
+                "reference": "753aeb34bbcb5d2bf902b8644efbca6052932b00",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Muvon\\KISS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muvon Co. Ltd",
+                    "email": "contact@muvon.io"
+                }
+            ],
+            "description": "Base58 codec",
+            "keywords": [
+                "base58",
+                "codec",
+                "decoder",
+                "encoder",
+                "kiss",
+                "lightweight"
+            ],
+            "support": {
+                "issues": "https://github.com/Muvon/php-kiss-base58-codec/issues",
+                "source": "https://github.com/Muvon/php-kiss-base58-codec/tree/0.1"
+            },
+            "time": "2021-04-27T14:58:03+00:00"
         },
         {
             "name": "muvon/kiss-request-trait",
