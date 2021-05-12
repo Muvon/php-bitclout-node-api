@@ -50,15 +50,15 @@ class NodeAPI {
     ]);
   }
 
-  public function getPublicKeyInfo(string $public_key): array {
+  public function getPubkeyInfo(string $pubkey): array {
     return $this->run('api/v1/transaction-info', [
-      'PublicKeyBase58Check' => $public_key,
+      'PublicKeyBase58Check' => $pubkey,
     ]);
   }
 
-  public function getUserByPublicKey(string $public_key): array {
+  public function getUserByPublicKey(string $pubkey): array {
     [$err, $result] = $this->run('get-users-stateless', [
-      'PublicKeysBase58Check' => [$public_key]
+      'PublicKeysBase58Check' => [$pubkey]
     ]);
     if ($err) {
       return [$err, null];
@@ -295,9 +295,9 @@ class NodeAPI {
     return substr($tx, 0, -2) . bin2hex(pack("c", strlen($signature) / 2)) . $signature;
   }
 
-  public function getDiamondsForPublicKey(string $public_key): array {
+  public function getDiamondsForPublicKey(string $pubkey): array {
     return $this->run('get-diamonds-for-public-key', [
-      'PublicKeyBase58Check' => $public_key
+      'PublicKeyBase58Check' => $pubkey
     ]);
   }
 
