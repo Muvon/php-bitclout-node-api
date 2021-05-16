@@ -257,6 +257,18 @@ class NodeAPI {
     return $this->signAndSubmitResponse($response);
   }
 
+  public function sendDiamonds(string $receiver_key, string $post_hash, int $level = 1): array {
+    $response = $this->run('send-diamonds', [
+      'SenderPublicKeyBase58Check' => $this->public_key,
+      'ReceiverPublicKeyBase58Check' => $receiver_key,
+      'DiamondPostHashHex' => $post_hash,
+      'DiamondLevel' => $level,
+      'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
+    ]);
+
+    return $this->signAndSubmitResponse($response);
+  }
+
   public function sendMessage(string $receiver_key, string $text): array {
     $response = $this->run('send-message-stateless', [
       'SenderPublicKeyBase58Check' => $this->public_key,
