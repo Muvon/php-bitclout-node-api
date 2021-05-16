@@ -25,7 +25,7 @@
     "phpunit/phpunit": "^10"
   },
   "require": {
-    "muvon/kiss-request-trait": "^0.6.0",
+    "muvon/kiss-request-trait": "^0.7.0",
     "simplito/elliptic-php": "^1.0",
     "minter/minter-php-bip-44": "^1.2",
     "muvon/base58-codec": "^0.1"
