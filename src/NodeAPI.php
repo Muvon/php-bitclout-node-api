@@ -32,7 +32,16 @@ class NodeAPI {
     }
 
     if (isset($config['proxies'])) {
-      $this->proxies = $config['proxies'];
+      $this->proxies = array_map(function ($v): array {
+        if (is_string($v)) {
+          [$host, $port, $user, $password] = explode(':', $v);
+          $proxy = compact('host', 'port', 'user', 'password');
+        } else {
+          $proxy = $v;
+        }
+
+        return $proxy;
+      }, $config['proxies']);
     }
 
     if (isset($config['useragents'])) {
