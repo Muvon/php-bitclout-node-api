@@ -405,6 +405,13 @@ class NodeAPI {
     ]);
   }
 
+  public function getDiamonds(string $pubkey, bool $is_given = false): array {
+    return $this->run('get-diamonds-for-public-key', [
+      'FetchYouDiamonded' => $is_given,
+      'PublicKeyBase58Check' => $pubkey,
+    ]);
+  }
+
   public function run(string $path, array $payload, string $method = 'POST'): array {
     $mode = match ($path) {
       'submit-transaction' => 'write',
