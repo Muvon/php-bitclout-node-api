@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c97b0c24b66eb75d39fb1035b961c276",
+    "content-hash": "91ef9135637a08d9ce37ea6028d4f580",
     "packages": [
         {
             "name": "minter/minter-php-bip-44",
@@ -141,16 +141,16 @@
         },
         {
             "name": "muvon/kiss-request-trait",
-            "version": "0.7.0",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Muvon/php-kiss-request-trait.git",
-                "reference": "85990a61e955b3c97fa0891c6a10f561b2e6ba6d"
+                "reference": "f43b2c60ec62f0bb291e8f3e7f062c2212763514"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Muvon/php-kiss-request-trait/zipball/85990a61e955b3c97fa0891c6a10f561b2e6ba6d",
-                "reference": "85990a61e955b3c97fa0891c6a10f561b2e6ba6d",
+                "url": "https://api.github.com/repos/Muvon/php-kiss-request-trait/zipball/f43b2c60ec62f0bb291e8f3e7f062c2212763514",
+                "reference": "f43b2c60ec62f0bb291e8f3e7f062c2212763514",
                 "shasum": ""
             },
             "require": {
@@ -186,9 +186,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Muvon/php-kiss-request-trait/issues",
-                "source": "https://github.com/Muvon/php-kiss-request-trait/tree/0.7.0"
+                "source": "https://github.com/Muvon/php-kiss-request-trait/tree/0.8.0"
             },
-            "time": "2021-05-16T14:57:40+00:00"
+            "time": "2021-05-17T10:29:29+00:00"
         },
         {
             "name": "simplito/bigint-wrapper-php",
