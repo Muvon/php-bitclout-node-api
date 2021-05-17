@@ -194,6 +194,20 @@ class NodeAPI {
     return $this->likePost($hash, true);
   }
 
+  public function follow(string $pubkey, $is_unfollow = false): array {
+    $response = $this->run('create-follow-txn-stateless', [
+      'InUnfollow' => $is_unfollow,
+      'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
+      'FollowerPublicKeyBase58Check' => $this->public_key,
+      'FollowedPublicKeyBase58Check' => $pubkey,
+    ]);
+    return $this->signAndSubmitResponse($response);
+  }
+
+  public function unfollow(string $pubkey): array {
+    return $this->follow($pubkey, true);
+  }
+
   public function getNotifications(): array {
     return $this->run('get-notifications', [
       'PublicKeyBase58Check' => $this->public_key,
