@@ -179,6 +179,21 @@ class NodeAPI {
     ]);
   }
 
+
+  public function likePost(string $hash, $is_unlike = false): array {
+    $response = $this->run('create-like-stateless', [
+      'IsUnlike' => $is_unlike,
+      'LikedPostHashHex' => $hash,
+      'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
+      'ReaderPublicKeyBase58Check' => $this->public_key,
+    ]);
+    return $this->signAndSubmitResponse($response);
+  }
+
+  public function unlikePost(string $hash): array {
+    return $this->likePost($hash, true);
+  }
+
   public function getNotifications(): array {
     return $this->run('get-notifications', [
       'PublicKeyBase58Check' => $this->public_key,
