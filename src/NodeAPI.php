@@ -11,6 +11,7 @@ class NodeAPI {
 
   protected array $useragents = [];
   protected array $proxies = [];
+  protected array $proxy_modes = ['read', 'write'];
 
   use RequestTrait;
 
@@ -34,14 +35,18 @@ class NodeAPI {
     if (isset($config['proxies'])) {
       $this->proxies = array_map(function ($v): array {
         if (is_string($v)) {
-          [$host, $port, $user, $password] = explode(':', $v);
-          $proxy = compact('host', 'port', 'user', 'password');
+          [$type, $host, $port, $user, $password] = explode(':', $v);
+          $proxy = compact('type', 'host', 'port', 'user', 'password');
         } else {
           $proxy = $v;
         }
 
         return $proxy;
       }, $config['proxies']);
+    }
+
+    if (isset($config['proxy_modes'])) {
+      $this->proxy_modes = $config['proxy_modes'];
     }
 
     if (isset($config['useragents'])) {
@@ -372,9 +377,14 @@ class NodeAPI {
   }
 
   public function run(string $path, array $payload, string $method = 'POST'): array {
-    $url = match ($path) {
-      'submit-transaction' => $this->write_url,
-      default => $this->read_url
+    $mode = match ($path) {
+      'submit-transaction' => 'write',
+      default => 'read',
+    };
+
+    $url = match ($mode) {
+      'write' => $this->write_url,
+      'read' => $this->read_url,
     };
 
     if (!str_starts_with($path, 'api')) {
@@ -382,8 +392,10 @@ class NodeAPI {
     }
 
     // If we have set proxies, randomize
-    if ($this->proxies) {
+    if ($this->proxies && in_array($mode, $this->proxy_modes)) {
       $this->request_proxy = $this->proxies[array_rand($this->proxies)];
+    } else {
+      $this->request_proxy = [];
     }
 
     // If we have list of user agents randomize it
