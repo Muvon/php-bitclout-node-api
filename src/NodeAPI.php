@@ -9,6 +9,9 @@ class NodeAPI {
   const NETWORK_PREFIX = 'cd1400';
   const HD_PATH = "m/44'/0'/0'/0/0";
 
+  protected array $useragents = [];
+  protected array $proxies = [];
+
   use RequestTrait;
 
   public function __construct(array $config) {
@@ -26,6 +29,14 @@ class NodeAPI {
     } else {
       $this->private_key = $config['private_key'];
       $this->public_key = $config['public_key'];
+    }
+
+    if (isset($config['proxies'])) {
+      $this->proxies = $config['proxies'];
+    }
+
+    if (isset($config['useragents'])) {
+      $this->useragents = $config['useragents'];
     }
   }
 
@@ -359,6 +370,16 @@ class NodeAPI {
 
     if (!str_starts_with($path, 'api')) {
       $path = 'api/v0/' . $path;
+    }
+
+    // If we have set proxies, randomize
+    if ($this->proxies) {
+      $this->request_proxy = $this->proxies[array_rand($this->proxies)];
+    }
+
+    // If we have list of user agents randomize it
+    if ($this->useragents) {
+      $this->request_useragent = $this->useragents[array_rand($this->useragents)];
     }
 
     [$err, $result] = $this->request($url . '/' . $path, $payload, $method);
