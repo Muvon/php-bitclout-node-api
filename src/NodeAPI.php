@@ -414,7 +414,11 @@ class NodeAPI {
 
   public function run(string $path, array $payload, string $method = 'POST'): array {
     $mode = match ($path) {
-      'submit-transaction' => 'write',
+      'buy-or-sell-creator-coin', 'create-follow-txn-stateless',
+        'create-like-txn-stateless', 'send-diamonds',
+        'send-bitclout', 'transfer-creator-coin',
+        'send-message-stateless', 'submit-post',
+        'submit-transaction' => 'write',
       default => 'read',
     };
 
