@@ -412,6 +412,10 @@ class NodeAPI {
     ]);
   }
 
+  public function getExchangeRate(): array {
+    return $this->run('get-exchange-rate', [], 'GET');
+  }
+
   public function run(string $path, array $payload, string $method = 'POST'): array {
     $mode = match ($path) {
       'buy-or-sell-creator-coin', 'create-follow-txn-stateless',
