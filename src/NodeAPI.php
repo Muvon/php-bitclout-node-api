@@ -87,6 +87,12 @@ class NodeAPI {
     ]);
   }
 
+  public function getMempool(): array {
+    return $this->run('api/v1/transaction-info', [
+      'IsMempool' => true,
+    ]);
+  }
+
   public function getTransaction(string $id): array {
     return $this->run('api/v1/transaction-info', [
       'TransactionIDBase58Check' => $id,
