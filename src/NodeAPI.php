@@ -99,6 +99,12 @@ class NodeAPI {
     ]);
   }
 
+  public function getPubkeyBalance(string $pubkey): array {
+    return $this->run('api/v1/balance', [
+      'PublicKeyBase58Check' => $pubkey,
+    ]);
+  }
+
   public function getUserByPublicKey(string $pubkey): array {
     [$err, $result] = $this->run('get-users-stateless', [
       'PublicKeysBase58Check' => [$pubkey]
@@ -282,6 +288,16 @@ class NodeAPI {
     ]);
   }
 
+  public function createSendCreatorCoinTx(string $creator_key, string $receiver_key, int $value): array {
+    return $this->run('transfer-creator-coin', [
+      'SenderPublicKeyBase58Check' => $this->public_key,
+      'CreatorPublicKeyBase58Check' => $creator_key,
+      'ReceiverUsernameOrPublicKeyBase58Check' => $receiver_key,
+      'CreatorCoinToTransferNanos' => $value,
+      'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
+    ]);
+  }
+
   public function submitTx(string $signed_tx): array {
     return $this->run('submit-transaction', [
       'TransactionHex' => $signed_tx,
@@ -301,13 +317,7 @@ class NodeAPI {
   }
 
   public function sendCreatorCoin(string $creator_key, string $receiver_key, int $value): array {
-    $response = $this->run('transfer-creator-coin', [
-      'SenderPublicKeyBase58Check' => $this->public_key,
-      'CreatorPublicKeyBase58Check' => $creator_key,
-      'ReceiverUsernameOrPublicKeyBase58Check' => $receiver_key,
-      'CreatorCoinToTransferNanos' => $value,
-      'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
-    ]);
+    $response = $this->createSendCreatorCoinTx($creator_key, $receiver_key, $value);
     return $this->signAndSubmitResponse($response);
   }
 
