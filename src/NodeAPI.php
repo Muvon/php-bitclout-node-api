@@ -135,6 +135,18 @@ class NodeAPI {
     return [null, $result['Profile']];
   }
 
+  public function getProfilePic(string $pubkey): string {
+    $old_rt = $this->request_type;
+    $this->request_type = 'raw';
+    [$err, $result] = $this->run('get-single-profile-picture/' . $pubkey, [], 'GET');
+    $this->request_type = $old_rt;
+
+    if ($err) {
+      return '';
+    }
+    return 'data:image/webp;base64,' . base64_encode($result);
+  }
+
   public function getProfiles(string $search, string $type = 'username', int $limit = 20, string $order = 'newest', string $moderation = 'unrestricted'): array {
     return $this->run('get-profiles', [
       'PublicKeyBase58Check' => $type === 'pubkey' ? $search : '',
