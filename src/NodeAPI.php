@@ -147,14 +147,14 @@ class NodeAPI {
     return 'data:image/webp;base64,' . base64_encode($result);
   }
 
-  public function getProfiles(string $search, string $type = 'username', int $limit = 20, string $order = 'newest'): array {
+  public function getProfiles(string $search, string $type = 'username', int $limit = 20, string $order = 'newest', string $moderation = 'unrestricted'): array {
     return $this->run('get-profiles', [
       'PublicKeyBase58Check' => $type === 'pubkey' ? $search : '',
       'Username' => $type === 'username' ? $search : '',
       'UsernamePrefix' => $type === 'prefix' ? $search : '',
       'Description' => '',
-      'OrderBy' => $order, // influencer_stake | influencer_post_stake | newest_last_post | newest_last_comment | influencer_coin_price
-      'ModerationType' => '', // (currently empty string or 'leaderboard')
+      'OrderBy' => $order,
+      'ModerationType' => $moderation,
       'FetchUsersThatHODL' => false,
       'AddGlobalFeedBool' => false,
       'NumToFetch' => $limit,
@@ -240,7 +240,7 @@ class NodeAPI {
     ]);
   }
 
-  public function buyCreatorCoin(string $creator_key, int $value, bool $preview = false): array{
+  public function buyCreatorCoin(string $creator_key, int $value, bool $preview = false, int $expected_nanos = 0): array{
     $response = $this->run('buy-or-sell-creator-coin', [
       'UpdaterPublicKeyBase58Check' => $this->public_key,
       'CreatorPublicKeyBase58Check' => $creator_key,
@@ -248,7 +248,7 @@ class NodeAPI {
       'CreatorCoinToSellNanos' => 0,
       'BitCloutToAddNanos' => 0,
       'MinBitCloutExpectedNanos' => 0,
-      'MinCreatorCoinExpectedNanos' => 0,
+      'MinCreatorCoinExpectedNanos' => $expected_nanos,
       'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
       'OperationType' => 'buy',
     ]);
@@ -260,14 +260,14 @@ class NodeAPI {
     return $this->signAndSubmitResponse($response);
   }
 
-  public function sellCreatorCoin(string $creator_key, int $value, bool $preview = false): array{
+  public function sellCreatorCoin(string $creator_key, int $value, bool $preview = false, int $expected_nanos = 0): array{
     $response = $this->run('buy-or-sell-creator-coin', [
       'UpdaterPublicKeyBase58Check' => $this->public_key,
       'CreatorPublicKeyBase58Check' => $creator_key,
       'BitCloutToSellNanos' => 0,
       'CreatorCoinToSellNanos' => $value,
       'BitCloutToAddNanos' => 0,
-      'MinBitCloutExpectedNanos' => 0,
+      'MinBitCloutExpectedNanos' => $expected_nanos,
       'MinCreatorCoinExpectedNanos' => 0,
       'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
       'OperationType' => 'sell',
@@ -295,6 +295,13 @@ class NodeAPI {
     }
 
     return [null, $result];
+  }
+
+  public function getHolding(string $pubkey, string $creator): array {
+    return $this->run('is-hodling-public-key', [
+      'PublicKeyBase58Check' => $pubkey,
+      'IsHodlingPublicKeyBase58Check' => $creator,
+    ]);
   }
 
   public function createSendBitcloutTx(string $receiver_key, int $value): array {
