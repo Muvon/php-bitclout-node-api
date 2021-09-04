@@ -25,11 +25,10 @@
     "phpunit/phpunit": "^10"
   },
   "require": {
-    "muvon/kiss-request-trait": "^0.9.0",
-    "simplito/elliptic-php": "^1.0.6",
+    "muvon/kiss-request-trait": "^0.8.2",
+    "simplito/elliptic-php": "^1.0",
     "minter/minter-php-bip-44": "^1.2",
-    "muvon/base58-codec": "^0.1",
-    "muvon/kiss-binary-codec": "^0.4.0"
+    "muvon/base58-codec": "^0.1"
   },
   "autoload": {
     "psr-4": {
