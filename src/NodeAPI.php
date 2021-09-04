@@ -131,7 +131,7 @@ class NodeAPI {
     if ($err) {
       return [$err, $result];
     }
-    
+
     return [null, $result['Profile']];
   }
 
@@ -396,7 +396,7 @@ class NodeAPI {
     if ($err) {
       return [$err, $result];
     }
-    
+
     return $this->signAndSubmitTx($result['TransactionHex']);
   }
 
@@ -437,6 +437,13 @@ class NodeAPI {
       'GetEntriesFollowingUsername' => false,
       'LastPublicKeyBase58Check' => $last_pubkey,
       'NumToFetch' => $limit,
+    ]);
+  }
+
+  public function getFollow(string $pubkey, string $creator): array {
+    return $this->run('is-following-public-key', [
+      'PublicKeyBase58Check' => $pubkey,
+      'IsFollowingPublicKeyBase58Check' => $creator,
     ]);
   }
 
