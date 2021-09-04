@@ -147,14 +147,14 @@ class NodeAPI {
     return 'data:image/webp;base64,' . base64_encode($result);
   }
 
-  public function getProfiles(string $search, string $type = 'username', int $limit = 20, string $order = 'newest', string $moderation = 'unrestricted'): array {
+  public function getProfiles(string $search, string $type = 'username', int $limit = 20, string $order = 'newest'): array {
     return $this->run('get-profiles', [
       'PublicKeyBase58Check' => $type === 'pubkey' ? $search : '',
       'Username' => $type === 'username' ? $search : '',
       'UsernamePrefix' => $type === 'prefix' ? $search : '',
       'Description' => '',
-      'OrderBy' => $order,
-      'ModerationType' => $moderation,
+      'OrderBy' => $order, // influencer_stake | influencer_post_stake | newest_last_post | newest_last_comment | influencer_coin_price
+      'ModerationType' => '', // (currently empty string or 'leaderboard')
       'FetchUsersThatHODL' => false,
       'AddGlobalFeedBool' => false,
       'NumToFetch' => $limit,
