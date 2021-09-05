@@ -280,13 +280,14 @@ class NodeAPI {
     return $this->signAndSubmitResponse($response);
   }
 
-  public function getHolders(string $search, string $type = 'username', string $last_pubkey = '', int $limit = 100): array {
+
+  public function getHolders(string $search, string $type = 'username', string $last_pubkey = '', int $limit = 100, bool $fetch_holdings = false): array {
     [$err, $result] = $this->run('get-hodlers-for-public-key', [
       'PublicKeyBase58Check' => $type === 'pubkey' ? $search : '',
       'Username' => $type === 'username' ? $search : '',
       'LastPublicKeyBase58Check' => $last_pubkey,
-      'NumToFetch' => $limit,
-      'FetchHodlings' => false,
+      'NumToFetch' => $limit > 0 ? $limit : 0,
+      'FetchHodlings' => $fetch_holdings,
       'FetchAll' => $limit === -1 ? true : false,
     ]);
 
@@ -295,6 +296,10 @@ class NodeAPI {
     }
 
     return [null, $result];
+  }
+
+  public function getHoldings(string $search, string $type = 'username', string $last_pubkey = '', int $limit = 100): array {
+    return $this->getHolders($search, $type, $last_pubkey, $limit, true);
   }
 
   public function getHolding(string $pubkey, string $creator): array {
