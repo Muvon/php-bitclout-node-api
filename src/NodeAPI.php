@@ -116,7 +116,7 @@ class NodeAPI {
       'PublicKeysBase58Check' => [$pubkey]
     ]);
     if ($err) {
-      return [$err, null];
+      return [$err, $result];
     }
 
     return [null, $result['UserList'][0]];
@@ -491,7 +491,7 @@ class NodeAPI {
 
     [$err, $result] = $this->request($url . '/' . $path, $payload, $method);
     if ($err) {
-      return [$err, null];
+      return [$err, $result];
     }
 
     return [$err, $result];
