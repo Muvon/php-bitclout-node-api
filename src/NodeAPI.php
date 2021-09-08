@@ -517,4 +517,13 @@ class NodeAPI {
 
     return [$err, $result];
   }
+
+  public function setConfig(string $key, string $value): static {
+    $this->$key = $value;
+    return $this;
+  }
+
+  public function getConfig(string $key): mixed {
+    return $this->$key;
+  }
 }
