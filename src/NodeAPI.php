@@ -374,6 +374,22 @@ class NodeAPI {
     return $this->signAndSubmitResponse($response);
   }
 
+
+  public function updateProfile(string $username, string $avatar_base64, int $reward = 10000, string $description = ''): array {
+    $response = $this->run('update-profile', [
+      'IsHidden' => false,
+      'NewCreatorBasisPoints' => $reward,
+      'NewDescription' => $description, 
+      'NewProfilePic' => $avatar_base64,
+      'NewStakeMultipleBasisPoints' => 12500,
+      'NewUsername' => $username, 
+      'ProfilePublicKeyBase58Check' => '',
+      'UpdaterPublicKeyBase58Check' => $this->public_key,
+      'MinFeeRateNanosPerKB' => $this->min_rate_nanos,
+    ]);
+    return $this->signAndSubmitResponse($response);
+  }
+
   public function submitPost(string $text): array {
     $response = $this->run('submit-post', [
       'UpdaterPublicKeyBase58Check' => $this->public_key,
